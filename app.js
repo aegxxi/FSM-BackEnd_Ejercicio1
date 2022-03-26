@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
   
   const saltoLinea =  '<Br/>';  //'\n' en Java, <Br/> en Html
   const estilos=`<style>
-                  h1 {color:red;}
-                  h2 {color:yellow;}
+                  h1 {color:aquamarine;}
+                  h2 {color:lawngreen;}
                   p {color:aquamarine;}
                   a {color:aliceblue}
                   summary {color:aliceblue}
@@ -64,11 +64,11 @@ app.get('/', (req, res) => {
                       </h2>
                       ${saltoLinea}
                       <span>
-                        - Node.js version:   ${version} 
+                        - Node.js version   : <b>${version}</b>
                         ${saltoLinea}
-                        - Express.js version: ${obtenerExpressVersion()} 
+                        - Express.js version: <b>${obtenerExpressVersion()} </b>
                         ${saltoLinea}
-                        - Iniciado: ${obtenerMomentoDeArranque()} 
+                        - Iniciado          : <b>${obtenerMomentoDeArranque()} </b>
                       </span>
                       ${saltoLinea} ${saltoLinea}
                       <h3>
@@ -94,10 +94,17 @@ app.get('/', (req, res) => {
                           <details>
                           <summary>Comentarios</summary>
                           <article>
-                              <p class="textoComentario">En este caso no hay validaciones de los datos pasados por parametros</p>
+                              <p class="textoComentario">En este caso no se valido cada parametro, se valido el resultado</p>
                               <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
                               <p class="textoComentario"> - Para convertir el valor del parametro se eligio multiplicarlo por 1 (elemento neutro de la multiplicacio)</p>
-                              <p class="textoComentario">ya que en Js "2" * 2 = 4, si el texto es un numero lo convierte y devuelve el resultado como numero</p>
+                              <p class="textoComentario">   ya que en Js ("2" * 2 = 4), si el texto ("2") es un numero lo convierte en el mumero (2) y devuelve el resultado (4) como numero</p>
+                              <p class="textoComentario">   ojo! en Js ("2" + 2 = "4"), si el texto ("2") es un numero lo convierte en el mumero (2) y devuelve el resultado ("4") como texto</p>
+                              <p class="textoComentario">   ojo! en Js ("A" * 2)=NaN (no es un numero) pero Js lo considera de tipo numerico. NaN usado en cualquier operacion da como resultado NaN</p>
+                              <p class="textoComentario">   aprovechando esto si multiplicamos el valor recibido en el parametro por 1 (Valor neutro) y lo almacenamos en una variable, esta sera de tipo numerico</p>
+                              <p class="textoComentario">   si luego usamos las variables en una operacion matematica el resultado sera numerico, o se cualquier numero incluyendo NaN</p>
+                              <p class="textoComentario">   por eso un simple ternario nos sirve para validar la variable que usamos para almacenar el resultado y no es necesario validar cada parametro </p>
+                              <p class="textoComentario">   Ejemplo del ternario => (resultado !== null && !isNaN(resultado)) ? resultado : "Mesaje de parametros incorrectos"; </p>
+                              <p class="textoComentario">___</p>
                           </article>
                         </details> 
                           </li>
@@ -111,6 +118,7 @@ app.get('/', (req, res) => {
                                 <p class="textoComentario"> - Si se pasan todos los parametros, los datos recibidos pueden ser validados</p>
                                 <p class="textoComentario">   - Se valido que los datos recibidos sean numericos</p>
                                 <p class="textoComentario">   - Se valido que los datos recibidos no sean 0 (cero)</p>
+                                <p class="textoComentario">___</p>
                             </article>
                           </details> 
                           </li>
@@ -120,6 +128,7 @@ app.get('/', (req, res) => {
                             <summary>Comentarios</summary>
                             <article>
                                 <p class="textoComentario">En este caso no hay validaciones de los datos pasados a la consulta</p>
+                                <p class="textoComentario">___</p>
                             </article>
                           </details>   
                         </li>
@@ -132,6 +141,7 @@ app.get('/', (req, res) => {
                                 <p class="textoComentario"> - En este caso los datos pueden haber sido enviados o no</p>
                                 <p class="textoComentario">   - Se valido que todos los datos se hayan recibido</p>
                                 <p class="textoComentario">   - Se valido que los datos recibidos sean texto y no numeros</p>
+                                <p class="textoComentario">___</p>
                             </article>
                           </details> 
                           </li>
@@ -144,6 +154,7 @@ app.get('/', (req, res) => {
                                 <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
                                 <p class="textoComentario"> - Si se pasan todos los parametros, los datos recibidos pueden ser validados</p>
                                 <p class="textoComentario">   - Se valido que los datos recibidos sean texto y no numeros</p>
+                                <p class="textoComentario">___</p>
                             </article>
                           </details> 
                           </li>
@@ -314,11 +325,12 @@ app.get('/suma/:num1/:num2', (req, res) => {
   // Consologueo los valores a trabajar en este ejercicio
   console.log(``);
   console.log(`Log de valores del ejercicio 1 Opcion 2: ${obtenerMomentoDeArranque()}`);
-  console.log(`req.params.num1: ${req.params.num1}`);
-  console.log(`req.params.num2: ${req.params.num2}`);
-  console.log(`num1: ${num1}`);
-  console.log(`num2: ${num2}`);
-  console.log(`resultado: ${resultado}`);
+  console.log(`. req.params.num1 => ${req.params.num1} -> Tipo: ${typeof req.params.num1}`);
+  console.log(`. req.params.num2 => ${req.params.num2} -> Tipo: ${typeof req.params.num2}`);
+  console.log(`. num1 => ${num1} -> Tipo: ${typeof num1}`);
+  console.log(`. num2 => ${num2} -> Tipo: ${typeof num2}`);
+  console.log(`. resultado => ${resultado} -> Tipo: ${typeof resultado}`);
+  console.log(`. (resultado !== null && !isNaN(resultado)) => ${(resultado !== null && !isNaN(resultado))} -> Tipo: ${typeof (resultado !== null && !isNaN(resultado))}`);
   //---------------------------------------------------------------------------    
   
   // Asigno a variable el error a mostrar
@@ -359,11 +371,13 @@ app.get('/resta/:num1/:num2', (req, res) => {
   // Consologueo los valores a trabajar en este ejercicio
   console.log(``);
   console.log(`Log de valores del ejercicio 2: ${obtenerMomentoDeArranque()}`);
-  console.log(`req.params.num1: ${req.params.num1}`);
-  console.log(`req.params.num2: ${req.params.num2}`);
-  console.log(`num1: ${num1}`);
-  console.log(`num2: ${num2}`);
-  console.log(`resultado: ${resultado}`);
+  console.log(`. req.params.num1 => ${req.params.num1} -> Tipo: ${typeof req.params.num1}`);
+  console.log(`. req.params.num2 => ${req.params.num2} -> Tipo: ${typeof req.params.num2}`);
+  console.log(`. num1 => ${num1} -> Tipo: ${typeof num1}`);
+  console.log(`. num2 => ${num2} -> Tipo: ${typeof num2}`);
+  console.log(`. resultado => ${resultado} -> Tipo: ${typeof resultado}`);
+  console.log(`. (resultado !== null && !isNaN(resultado)) => ${(resultado !== null && !isNaN(resultado))} -> Tipo: ${typeof (resultado !== null && !isNaN(resultado))}`);
+  console.log(`. (num1 !== 0 && num2 !== 0) => ${(num1 !== 0 && num2 !== 0)} -> Tipo: ${typeof (num1 !== 0 && num2 !== 0)}`);
   //---------------------------------------------------------------------------
 
   // Asigno a variables los errores a informar
@@ -400,10 +414,10 @@ app.get('/ej3op1', (req, res) => {
   // Consologueo los valores a trabajar en este ejercicio
   console.log(``);
   console.log(`Log de valores del ejercicio 3 Opcion 1: ${obtenerMomentoDeArranque()}`);
-  console.log(`req.query.nombre: ${req.query.nombre}`);
-  console.log(`req.query.apellido: ${req.query.apellido}`);
-  console.log(`nombre: ${nombre}`);
-  console.log(`apellido: ${apellido}`);
+  console.log(`. req.query.nombre => ${req.query.nombre} -> Tipo: ${typeof req.query.nombre}`);
+  console.log(`. req.query.apellido => ${req.query.apellido} -> Tipo: ${typeof req.query.apellido}`);
+  console.log(`. nombre => ${nombre} -> Tipo: ${typeof nombre}`);
+  console.log(`. apellido => ${apellido} -> Tipo: ${typeof apellido}`);
   //---------------------------------------------------------------------------  
   
   // Asigno a una variable el valor resultante sin validaciones
@@ -427,19 +441,23 @@ app.get('/ej3op2', (req, res) => {
   // Consologueo los valores a trabajar en este ejercicio
   console.log(``);
   console.log(`Log de valores del ejercicio 3 Opcion 2: ${obtenerMomentoDeArranque()}`);
-  console.log(`req.query.nombre: ${req.query.nombre}`);
-  console.log(`req.query.apellido: ${req.query.apellido}`);
-  console.log(`nombre: ${nombre}`);
-  console.log(`apellido: ${apellido}`);
+  console.log(`. req.query.nombre => ${req.query.nombre} -> Tipo: ${typeof req.query.nombre}`);
+  console.log(`. req.query.apellido => ${req.query.apellido} -> Tipo: ${typeof req.query.apellido}`);
+  console.log(`. nombre => ${nombre} -> Tipo: ${typeof nombre}`);
+  console.log(`. apellido => ${apellido} -> Tipo: ${typeof apellido}`);
+  console.log(`. nombre * 0 => ${(nombre * 0)} -> Tipo: ${typeof (nombre * 0)}`);
+  console.log(`. apellido * 0 => ${(apellido * 0)} -> Tipo: ${typeof (apellido * 0)}`);
+  console.log(`. ((nombre * 0) !==0 && (apellido * 0) !==0) => ${(nombre * 0) !==0 && (apellido * 0) !==0} -> Tipo: ${typeof ((nombre * 0) !==0 && (apellido * 0) !==0)}`);
+  console.log(`. ( nombre && apellido ) => ${(nombre && apellido)} -> Tipo: ${typeof (nombre && apellido)}`)
   //---------------------------------------------------------------------------  
   
   // Asigno a una variable el valor resultante segun la validacion
-  let respuesta = ( nombre  && apellido ) 
+  let respuesta = ( nombre && apellido ) 
     ?
-      (typeof (nombre * 1) === 'string' && typeof (apellido *1) === 'string')
-        ? `Respuesta: Mi nombre es ${nombre} ${apellido}`
-        : `Respuesta: Todos los argumentos de la consulta deben ser textos -> Valores consultados  [${nombre}] y [${apellido}]`
-    :`Respuesta: Se deben pasar las dos consultas con su valor (?nombre:Nombre&apellido:Apellido) -> Valores consultados [${nombre}] y [${apellido}]`
+      ((nombre * 0) !== 0 && (apellido * 0) !== 0)
+        ? `Mi nombre es ${nombre} ${apellido}`
+        :`Todos los argumentos de la consulta deben ser textos -> Valores consultados  [${nombre}] y [${apellido}]`
+    :`Se deben pasar las dos consultas con su valor (?nombre:Nombre&apellido:Apellido) -> Valores consultados [${nombre}] y [${apellido}]`
   ;
   
   //Respondo con la variable ya validada
@@ -460,16 +478,18 @@ app.get('/ej3op3/:nombre/:apellido', (req, res) => {
   // Consologueo los valores a trabajar en este ejercicio
   console.log(``);
   console.log(`Log de valores del ejercicio 3 Opcion 3: ${obtenerMomentoDeArranque()}`);
-  console.log(`req.params.nombre: ${req.params.nombre}`);
-  console.log(`req.params.apellido: ${req.params.apellido}`);
-  console.log(`nombre: ${nombre}`);
-  console.log(`apellido: ${apellido}`);
+  console.log(`. req.params.nombre => ${req.params.nombre} -> Tipo: ${typeof req.params.nombre}`);
+  console.log(`. req.params.apellido => ${req.params.apellido} -> Tipo: ${typeof req.params.apellido}`);
+  console.log(`. nombre => ${nombre} -> Tipo: ${typeof nombre}`);
+  console.log(`. apellido => ${apellido} -> Tipo: ${typeof apellido}`);
+  console.log(`. ( nombre && apellido ) => ${( nombre && apellido )} -> Tipo: ${typeof ( nombre && apellido )}`);
+  console.log(`. ((nombre * 0) !== 0 && (apellido * 0) !== 0) => ${((nombre * 0) !== 0 && (apellido * 0) !== 0)} -> Tipo: ${typeof (((nombre * 0) !== 0 && (apellido * 0) !== 0))}`);
   //---------------------------------------------------------------------------    
   
   // Asigno a una variable el resultado, segun la validacion de los datos obtenidos
   let respuesta = ( nombre && apellido ) 
     ?
-      (typeof (nombre * 1) === 'string' && typeof (apellido *1) === 'string')
+    ((nombre * 0) !== 0 && (apellido * 0) !== 0)
       ? `Respuesta: Mi nombre es ${nombre} ${apellido}`
       : `Respuesta: Todos los argumentos de la consulta deben ser textos -> Valores pasados  [${nombre}] y [${apellido}]`
     :`Respuesta: Se deben pasar los dos parametros (ruta/:nombre/:apellido) -> Valores pasados  ruta/${nombre}/${apellido}`
