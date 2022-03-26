@@ -16,28 +16,31 @@ const port = 4000;                                   //declaro el puerto donde c
 // [ app.METHOD(PATH, HANDLER) ]
 app.get('/', (req, res) => {
   
-  
   const saltoLinea =  '<Br/>';  //'\n' en Java, <Br/> en Html
   const estilos=`<style>
                   h1 {color:red;}
+                  h2 {color:yellow;}
                   p {color:aquamarine;}
                   a {color:aliceblue}
+                  summary {color:aliceblue}
+                  article {color:aliceblue}
 
-                  .dark {
-                  color:yellow;
-                  background-color: black;
-                  }
                   .tituloPrincipal{
                       align-content: center;
                       text-align: center;
-                      margin: 1rem;
+                      margin: 2rem;
                   }
 
                   .fondo {
-                  color:yellow;
+                  color:aquamarine;
                   background-color: black;
                   margin: 2rem;
                   }
+
+                  .textoComentario{
+                    color:aliceblue
+                  }
+
                   .firma {
                     color:aquamarine;
                     height: 64rem;
@@ -76,7 +79,7 @@ app.get('/', (req, res) => {
                       </h4>
                       <ul>
                         <li>
-                          <p>Ejemplo 1 -> Procesando Parametros (params) en las rutas: <a href="http://localhost:4000/numen/Andrres" target="_blank">Ver Ejemplo</a></p>
+                          <p>Ejemplo 1 -> Procesando Parametros (params) en las rutas: <a href="http://localhost:4000/numen/Andres" target="_blank">Ver Ejemplo</a></p>
                         </li>
                         <li>
                           <p>Ejemplo 2 -> Procesando Consultas (Querys) en las rutas: <a href="http://localhost:4000/prueba?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejemplo</a></p>
@@ -88,18 +91,64 @@ app.get('/', (req, res) => {
                       <ul>
                         <li>
                           <p>Ejercicio 1 -> Sumar dos valores: <a href="http://localhost:4000/suma/9/2" target="_blank">Ver Ejercicio</a></p>
-                        </li>
+                          <details>
+                          <summary>Comentarios</summary>
+                          <article>
+                              <p class="textoComentario">En este caso no hay validaciones de los datos pasados por parametros</p>
+                              <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
+                              <p class="textoComentario"> - Para convertir el valor del parametro se eligio multiplicarlo por 1 (elemento neutro de la multiplicacio)</p>
+                              <p class="textoComentario">ya que en Js "2" * 2 = 4, si el texto es un numero lo convierte y devuelve el resultado como numero</p>
+                          </article>
+                        </details> 
+                          </li>
                         <li>
                           <p>Ejercicio 2 -> Restar dos valores, distintos de cero: <a href="http://localhost:4000/resta/9/2" target="_blank">Ver Ejercicio</a></p>
+                          <details>
+                            <summary>Comentarios</summary>
+                            <article>
+                                <p class="textoComentario">En este caso hay validaciones de los datos pasados por parametros</p>
+                                <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
+                                <p class="textoComentario"> - Si se pasan todos los parametros, los datos recibidos pueden ser validados</p>
+                                <p class="textoComentario">   - Se valido que los datos recibidos sean numericos</p>
+                                <p class="textoComentario">   - Se valido que los datos recibidos no sean 0 (cero)</p>
+                            </article>
+                          </details> 
+                          </li>
+                        <li>
+                          <p>Ejercicio 3 -> Nombre y Apellido (Por Consulta, sin validaciones): <a href="http://localhost:4000/ej3op1?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejercicio</a></p>
+                          <details>
+                            <summary>Comentarios</summary>
+                            <article>
+                                <p class="textoComentario">En este caso no hay validaciones de los datos pasados a la consulta</p>
+                            </article>
+                          </details>   
                         </li>
                         <li>
-                          <p>Ejercicio 3 -> Nombre y Apellido (Por consulta): <a href="http://localhost:4000/ej3?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejercicio</a></p>
-                        </li>
+                          <p>Ejercicio 3 -> Nombre y Apellido (Por Consulta, con validaciones): <a href="http://localhost:4000/ej3op2?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejercicio</a></p>
+                          <details>
+                            <summary>Comentarios</summary>
+                            <article>
+                                <p class="textoComentario">En este caso si hay validaciones de los datos pasados a la consulta</p>
+                                <p class="textoComentario"> - En este caso los datos pueden haber sido enviados o no</p>
+                                <p class="textoComentario">   - Se valido que todos los datos se hayan recibido</p>
+                                <p class="textoComentario">   - Se valido que los datos recibidos sean texto y no numeros</p>
+                            </article>
+                          </details> 
+                          </li>
                         <li>
-                          <p>Ejercicio 3 -> Nombre y Apellido (Por parametros): <a href="http://localhost:4000/ej3op2/Andrres/Garcia" target="_blank">Ver Ejercicio</a></p>
-                        </li>
+                          <p>Ejercicio 3 -> Nombre y Apellido (Por Parametros, con validaciones): <a href="http://localhost:4000/ej3op3/Andrres/Garcia" target="_blank">Ver Ejercicio</a></p>
+                          <details>
+                            <summary>Comentarios</summary>
+                            <article>
+                                <p class="textoComentario">En este caso si hay validaciones de los datos pasados por parametros</p>
+                                <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
+                                <p class="textoComentario"> - Si se pasan todos los parametros, los datos recibidos pueden ser validados</p>
+                                <p class="textoComentario">   - Se valido que los datos recibidos sean texto y no numeros</p>
+                            </article>
+                          </details> 
+                          </li>
                       </ul> 
-                      ${saltoLinea} ${saltoLinea} ${saltoLinea} ${saltoLinea}
+                      ${saltoLinea} ${saltoLinea}
                       <p class="firma">
                         Ejercicio realizado por: <b>Andres Eduardo Garcia </b>
                       </p>
@@ -121,19 +170,111 @@ app.get('/', (req, res) => {
 // -------------------------------------------
 //  Ej: http://localhost:4000/numen/Andrres
 app.get('/numen/:alumno', (req, res) => {
+  const saltoLinea =  '<Br/>'; 
+  const estilos=`<style>
+                  h1 {color:blue;}
+                  p {color:Black;}
+                  a {color:aliceblue}
+
+                  .tituloPrincipal{
+                      align-content: center;
+                      text-align: center;
+                      margin: 1rem;
+                  }
+
+                  .cuerpo {
+                  color:Black;
+                  background-color: lightsteelblue;
+                  margin: 2rem;
+                  }
+                </style>
+                `
+                ;
   let alumno = req.params.alumno;
-  res.status(200).send(`Hola: ${alumno} `);
+
+  let respuesta =`
+    <head>
+    <title>Servidor Node-Express</title>
+    ${estilos}
+  </head>
+  <body  class="cuerpo">
+    <h1>
+      Retorna: 'Hola: ${alumno}'
+    </h1>
+    ${saltoLinea}
+    <h2>
+      Codigo: 
+    </h2>
+    ${saltoLinea}
+    <code>
+      ${`app.get('/numen/:alumno', (req, res) => {`} ${saltoLinea}
+      ${`   Let alumno = req.params.alumno;`} ${saltoLinea}
+      ${`   res.status(200).send('Hola: ' + ${'${alumno}'});`} ${saltoLinea}
+      ${`}) `} ${saltoLinea}
+    </code>
+  </body> 
+    `
+    ;
+
+  res.status(200).send(respuesta);
 })
 
 // Procesando Consultas (Querys) en las rutas
 // ------------------------------------------
 //  Ej: http://localhost:4000/prueba?nombre=Andres&apellido=Garcia
 app.get('/prueba', (req, res) => {
+  const saltoLinea =  '<Br/>'; 
+  const estilos=`<style>
+                  h1 {color:blue;}
+                  p {color:Black;}
+                  a {color:aliceblue}
+
+                  .tituloPrincipal{
+                      align-content: center;
+                      text-align: center;
+                      margin: 1rem;
+                  }
+
+                  .cuerpo {
+                  color:Black;
+                  background-color: lightsteelblue;
+                  margin: 2rem;
+                  }
+                </style>
+                `
+                ; 
+  
   let nombre = req.query.nombre;
   let apellido = req.query.apellido;
   let resultado = `Mi nombre es: ${nombre}, ${apellido} `;
+
+  let respuesta =`
+    <head>
+    <title>Servidor Node-Express</title>
+    ${estilos}
+  </head>
+  <body  class="cuerpo">
+    <h1>
+      Retorna: ${resultado}
+    </h1>
+    ${saltoLinea}
+    <h2>
+      Codigo: 
+    </h2>
+    ${saltoLinea}
+    <code>    
+      ${`app.get('/prueba', (req, res) => {   `}${saltoLinea}
+      ${'   let nombre = req.query.nombre;'}${saltoLinea}
+      ${'   let apellido = req.query.apellido;'}${saltoLinea}
+      ${'   let resultado = `Mi nombre es: ${nombre}, ${apellido} `;'}${saltoLinea}
+      ${`   res.status(200).send(resultado);`} ${saltoLinea}
+      ${`})   `} ${saltoLinea}
+    </code>
+  </body> 
+  `
+  ;
   
-  res.status(200).send(resultado);
+  res.status(200).send(respuesta);
 })
 
 //-------------------------------------------------------------------
@@ -159,7 +300,6 @@ app.get('/sumaEjemploClase/:num1/:num2', (req, res) => {
 })
 
 
-
 // Opcion 2 - 
 // Transformo el texto a numero haciendo una operacion matematica
 //  (por ejemplo multiplico por 1 que es un elemento neutro para la multiplicacion)
@@ -170,9 +310,22 @@ app.get('/suma/:num1/:num2', (req, res) => {
   let num1 = (req.params.num1) * 1;
   let num2 = (req.params.num2) *1;
   let resultado = num1 + num2;
-  let msjPrmIncorrecto = `Ambos Parametros deben ser Numeros. ${num1}/${num2}`;
+
+  // Consologueo los valores a trabajar en este ejercicio
+  console.log(``);
+  console.log(`Log de valores del ejercicio 1 Opcion 2: ${obtenerMomentoDeArranque()}`);
+  console.log(`req.params.num1: ${req.params.num1}`);
+  console.log(`req.params.num2: ${req.params.num2}`);
+  console.log(`num1: ${num1}`);
+  console.log(`num2: ${num2}`);
+  console.log(`resultado: ${resultado}`);
+  //---------------------------------------------------------------------------    
   
-  let respuesta = (resultado !== null && !isNaN(resultado)) ? {resultado} : {msjPrmIncorrecto};
+  // Asigno a variable el error a mostrar
+  let msjPrmIncorrecto = `Ambos Parametros deben ser Numeros. ruta/${num1}/${num2}`;
+  
+  // Asigno a variable el resultado, luego de validarlo
+  let respuesta = (resultado !== null && !isNaN(resultado)) ? resultado : msjPrmIncorrecto;
    
   // Muestra del ternario como If ... else
   // let respuesta
@@ -182,9 +335,12 @@ app.get('/suma/:num1/:num2', (req, res) => {
   //   respuesta = msjPrmIncorrecto
   // }  
 
+  // informo el resultado ya validado
   res.status(200).json(respuesta);
+  
+  //Consologueo la repuesta
+  console.log(`* Respuesta: ${respuesta}`);
 })
-
 
 
 
@@ -195,56 +351,139 @@ app.get('/suma/:num1/:num2', (req, res) => {
 //  asi uso solo dos ternarios anidados para validar
 //  Ej: http://localhost:4000/resta/9/2
 app.get('/resta/:num1/:num2', (req, res) => {
+  // Cargo en variables los parametros, los transformo, y cargo el resultado en otra variable
   let num1 = (req.params.num1) * 1;
   let num2 = (req.params.num2) *1;
   let resultado = num1 - num2;
-  let msjPrmIncorrecto = `Ambos Parametros deben ser Numeros. ${num1}/${num2}`;
-  let msjNumIncorrecto = `El 0 (cero) no se admite como parametro. ${num1}/${num2}`;
   
+  // Consologueo los valores a trabajar en este ejercicio
+  console.log(``);
+  console.log(`Log de valores del ejercicio 2: ${obtenerMomentoDeArranque()}`);
+  console.log(`req.params.num1: ${req.params.num1}`);
+  console.log(`req.params.num2: ${req.params.num2}`);
+  console.log(`num1: ${num1}`);
+  console.log(`num2: ${num2}`);
+  console.log(`resultado: ${resultado}`);
+  //---------------------------------------------------------------------------
+
+  // Asigno a variables los errores a informar
+  let msjPrmIncorrecto = `Ambos Parametros deben ser Numeros: ruta/${num1}/${num2}`;
+  let msjNumIncorrecto = `El 0 (cero) no se admite como parametro: ruta/${num1}/${num2}`;
+  
+  // Asigno a una variable el resultado luego de validarlo 
   let respuesta = (resultado !== null && !isNaN(resultado)) 
     ?  (num1 !== 0 && num2 !== 0)
-      ? {resultado} 
-      :{msjNumIncorrecto}
-    : {msjPrmIncorrecto}
+      ? resultado 
+      :msjNumIncorrecto
+    : msjPrmIncorrecto
   ;
 
+  // Respondo con el resultado validado
   res.status(200).json(respuesta);
+  
+  // Consologueo la repuesta
+  console.log(`* Respuesta: ${respuesta}`);
 })
+
 
 
 // Ejercicio 3 - Retornar Nombre y Apellido 
 // ------------------------------------------
 
-// Opcion 1, por consulta (qrys)
-// http://localhost:4000/ej3?nombre=Andres&apellido=Garcia
-app.get('/ej3', (req, res) => {
+// Opcion 1, por consulta (qrys) sin validacion
+// http://localhost:4000/ej3op2?nombre=Andres&apellido=Garcia
+app.get('/ej3op1', (req, res) => {
+  // Asigno a variables el contenido de las consultas
   let nombre = req.query.nombre
   let apellido = req.query.apellido
   
-  let respuesta = ( nombre  && apellido ) 
-    ?`Hola: ${nombre} ${apellido}`
-    :`Se deben pasar las dos consultas con su valor (?nombre:Nombre&apellido:Apellido): valores consultados: "${nombre}" y "${apellido}"`
-  ;
+  // Consologueo los valores a trabajar en este ejercicio
+  console.log(``);
+  console.log(`Log de valores del ejercicio 3 Opcion 1: ${obtenerMomentoDeArranque()}`);
+  console.log(`req.query.nombre: ${req.query.nombre}`);
+  console.log(`req.query.apellido: ${req.query.apellido}`);
+  console.log(`nombre: ${nombre}`);
+  console.log(`apellido: ${apellido}`);
+  //---------------------------------------------------------------------------  
   
-  res.status(200).send(respuesta);
+  // Asigno a una variable el valor resultante sin validaciones
+  let respuesta = `Respuesta: Mi nombre es ${nombre} ${apellido}`;
+  
+  //Respondo con la variable ya validada
+  res.status(200).json(respuesta);
+
+  //Consologueo la repuesta
+  console.log(`* Respuesta: ${respuesta}`);
 })
 
-// Opcion 2, por parametros (Prms)
-//  Ej: http://localhost:4000/ej3op2/Andrres/Garcia
-app.get('/ej3op2/:nombre/:apellido', (req, res) => {
+
+// Opcion 2, por consulta (qrys) con validacion
+// http://localhost:4000/ej3op2?nombre=Andres&apellido=Garcia
+app.get('/ej3op2', (req, res) => {
+  // Asigno a variables el contenido de las consultas
+  let nombre = req.query.nombre
+  let apellido = req.query.apellido
+  
+  // Consologueo los valores a trabajar en este ejercicio
+  console.log(``);
+  console.log(`Log de valores del ejercicio 3 Opcion 2: ${obtenerMomentoDeArranque()}`);
+  console.log(`req.query.nombre: ${req.query.nombre}`);
+  console.log(`req.query.apellido: ${req.query.apellido}`);
+  console.log(`nombre: ${nombre}`);
+  console.log(`apellido: ${apellido}`);
+  //---------------------------------------------------------------------------  
+  
+  // Asigno a una variable el valor resultante segun la validacion
+  let respuesta = ( nombre  && apellido ) 
+    ?
+      (typeof (nombre * 1) === 'string' && typeof (apellido *1) === 'string')
+        ? `Respuesta: Mi nombre es ${nombre} ${apellido}`
+        : `Respuesta: Todos los argumentos de la consulta deben ser textos -> Valores consultados  [${nombre}] y [${apellido}]`
+    :`Respuesta: Se deben pasar las dos consultas con su valor (?nombre:Nombre&apellido:Apellido) -> Valores consultados [${nombre}] y [${apellido}]`
+  ;
+  
+  //Respondo con la variable ya validada
+  res.status(200).json(respuesta);
+
+  //Consologueo la repuesta
+  console.log(`* Respuesta: ${respuesta}`);
+})
+
+
+// Opcion 3, por parametros (Prms)
+//  Ej: http://localhost:4000/ej3op3/Andrres/Garcia
+app.get('/ej3op3/:nombre/:apellido', (req, res) => {
+  // Asign a variables los datos de los parametros
   let nombre = req.params.nombre;
   let apellido = req.params.apellido;
   
+  // Consologueo los valores a trabajar en este ejercicio
+  console.log(``);
+  console.log(`Log de valores del ejercicio 3 Opcion 3: ${obtenerMomentoDeArranque()}`);
+  console.log(`req.params.nombre: ${req.params.nombre}`);
+  console.log(`req.params.apellido: ${req.params.apellido}`);
+  console.log(`nombre: ${nombre}`);
+  console.log(`apellido: ${apellido}`);
+  //---------------------------------------------------------------------------    
+  
+  // Asigno a una variable el resultado, segun la validacion de los datos obtenidos
   let respuesta = ( nombre && apellido ) 
-    ?`Hola: ${nombre} ${apellido}`
-    :`Se deben pasar los dos parametros (/:nombre/:apellido): ${nombre}/${apellido}`
+    ?
+      (typeof (nombre * 1) === 'string' && typeof (apellido *1) === 'string')
+      ? `Respuesta: Mi nombre es ${nombre} ${apellido}`
+      : `Respuesta: Todos los argumentos de la consulta deben ser textos -> Valores pasados  [${nombre}] y [${apellido}]`
+    :`Respuesta: Se deben pasar los dos parametros (ruta/:nombre/:apellido) -> Valores pasados  ruta/${nombre}/${apellido}`
   ;
   
-  res.status(200).send(`${respuesta}`);   
+  // Respondo con la variable con el resultado
+  res.status(200).json(`${respuesta}`);  
+  
+  //Consologueo la repuesta
+  console.log(`* Respuesta: ${respuesta}`);
+  console.log(respuesta);
 })
-
-
 //-----------------------------------------------------------------------
+
 
 
 //Funciones auxiliares
@@ -282,6 +521,7 @@ app.listen(port, () => {
   console.log(``);
   console.log(` * Ir a la pagina inicial del servidor: http://localhost:${port}`);
   
+  //Pruebas para mostrar las ip del equipo
   //console.log(os.networkInterfaces());
 })
 
