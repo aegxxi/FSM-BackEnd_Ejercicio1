@@ -58,7 +58,6 @@ app.get('/', (req, res) => {
                       <h1>
                         Mi primer servidor, Node.js - Express.js 
                       </h1>
-                      ${saltoLinea}
                       <h2>
                         El servidor "${app.name.toLocaleUpperCase()}" esta Listo y escuchando en el puerto: ${port} 
                       </h2>
@@ -85,6 +84,7 @@ app.get('/', (req, res) => {
                           <p>Ejemplo 2 -> Procesando Consultas (Querys) en las rutas: <a href="http://localhost:4000/prueba?nombre=Andres&apellido=Garcia" target="_blank">Ver Ejemplo</a></p>
                         </li>
                       </ul> 
+                      ${saltoLinea}
                       <h4>
                         Ejercicios:
                       </h4>
