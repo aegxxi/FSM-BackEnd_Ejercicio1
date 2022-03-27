@@ -1,5 +1,3 @@
-var os = require("os");
-
 
 const express = require('express');                 //Importo Express
 const { jsonp } = require("express/lib/response");
@@ -17,6 +15,8 @@ const port = 4000;                                   //declaro el puerto donde c
 app.get('/', (req, res) => {
   
   const saltoLinea =  '<Br/>';  //'\n' en Java, <Br/> en Html
+  const b = '&nbsp' //Espacio en blanco
+  const tab = `${b}${b}${b}` //Tabulacion de tres espacios
   const estilos=`<style>
                   h1 {color:aquamarine;}
                   h2 {color:lawngreen;}
@@ -24,17 +24,13 @@ app.get('/', (req, res) => {
                   a {color:aliceblue}
                   summary {color:aliceblue}
                   article {color:aliceblue}
-
-                  .tituloPrincipal{
-                      align-content: center;
-                      text-align: center;
-                      margin: 2rem;
-                  }
+                  
+                  .interlineado { line-height: 150%;}
 
                   .fondo {
-                  color:aquamarine;
-                  background-color: black;
-                  margin: 2rem;
+                    color:aquamarine;
+                    background-color: black;
+                    margin: 2rem;
                   }
 
                   .textoComentario{
@@ -62,12 +58,14 @@ app.get('/', (req, res) => {
                         El servidor "${app.name.toLocaleUpperCase()}" esta Listo y escuchando en el puerto: ${port} 
                       </h2>
                       ${saltoLinea}
-                      <span>
-                        - Node.js version   : <b>${version}</b>
+                      <span class='interlineado'>
+                        - Node.js version   : <b>${tab}${b} ${version}</b>
                         ${saltoLinea}
-                        - Express.js version: <b>${obtenerExpressVersion()} </b>
+                        - Express.js version: <b>${b} ${obtenerExpressVersion()} </b>
                         ${saltoLinea}
-                        - Iniciado          : <b>${obtenerMomentoDeArranque()} </b>
+                        - Direccion/es Ip   : <b>${tab}${b} ${obtenerIpLocal()} </b>
+                        ${saltoLinea}
+                        - Iniciado          : <b>${tab}${tab}${tab}${tab}${b}${b} ${obtenerMomentoDeArranque()} </b>
                       </span>
                       ${saltoLinea} ${saltoLinea}
                       <h3>
@@ -96,14 +94,14 @@ app.get('/', (req, res) => {
                           <article>
                               <p class="textoComentario">En este caso no se valido cada parametro, se valido el resultado</p>
                               <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
-                              <p class="textoComentario"> - Para convertir el valor del parametro se eligio multiplicarlo por 1 (elemento neutro de la multiplicacio)</p>
-                              <p class="textoComentario">   ya que en Js ("2" * 2 = 4), si el texto ("2") es un numero lo convierte en el mumero (2) y devuelve el resultado (4) como numero</p>
-                              <p class="textoComentario">   ojo! en Js ("2" + 2 = "4"), si el texto ("2") es un numero lo convierte en el mumero (2) y devuelve el resultado ("4") como texto</p>
-                              <p class="textoComentario">   ojo! en Js ("A" * 2)=NaN (no es un numero) pero Js lo considera de tipo numerico. NaN usado en cualquier operacion da como resultado NaN</p>
-                              <p class="textoComentario">   aprovechando esto si multiplicamos el valor recibido en el parametro por 1 (Valor neutro) y lo almacenamos en una variable, esta sera de tipo numerico</p>
-                              <p class="textoComentario">   si luego usamos las variables en una operacion matematica el resultado sera numerico, o se cualquier numero incluyendo NaN</p>
-                              <p class="textoComentario">   por eso un simple ternario nos sirve para validar la variable que usamos para almacenar el resultado y no es necesario validar cada parametro </p>
-                              <p class="textoComentario">   Ejemplo del ternario => (resultado !== null && !isNaN(resultado)) ? resultado : "Mesaje de parametros incorrectos"; </p>
+                              <p class="textoComentario"> - Para convertir el valor del parametro se eligio multiplicarlo por 1 (elemento neutro de la multiplicacion)</p>
+                              <p class="textoComentario">${tab} ya que en Js ("2" * 2 = 4), si el texto ("2"), es un numero, lo convierte en el mumero (2) y devuelve el resultado (4) como numero</p>
+                              <p class="textoComentario">${tab} ojo! en Js ("2" + 2 = "4"), si el texto ("2"), es un numero, lo convierte en el mumero (2) y devuelve el resultado ("4") como texto</p>
+                              <p class="textoComentario">${tab} ojo! en Js ("A" * 2)=NaN (no es un numero) pero Js lo considera de tipo numerico. NaN usado en cualquier operacion da como resultado NaN</p>
+                              <p class="textoComentario">${tab} aprovechando esto si multiplicamos el valor recibido en el parametro por 1 (Valor neutro) y lo almacenamos en una variable, esta sera de tipo numerico</p>
+                              <p class="textoComentario">${tab} si luego usamos las variables en una operacion matematica el resultado sera numerico, o sea cualquier numero incluyendo NaN</p>
+                              <p class="textoComentario">${tab} por eso un simple ternario nos sirve para validar la variable que usamos para almacenar el resultado y no es necesario validar cada parametro </p>
+                              <p class="textoComentario">${tab} Ejemplo del ternario => (resultado !== null && !isNaN(resultado)) ? resultado : "Mesaje de parametros incorrectos"; </p>
                               <p class="textoComentario">___</p>
                           </article>
                         </details> 
@@ -116,8 +114,8 @@ app.get('/', (req, res) => {
                                 <p class="textoComentario">En este caso hay validaciones de los datos pasados por parametros</p>
                                 <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
                                 <p class="textoComentario"> - Si se pasan todos los parametros, los datos recibidos pueden ser validados</p>
-                                <p class="textoComentario">   - Se valido que los datos recibidos sean numericos</p>
-                                <p class="textoComentario">   - Se valido que los datos recibidos no sean 0 (cero)</p>
+                                <p class="textoComentario">${tab} - Se valido que los datos recibidos sean numericos</p>
+                                <p class="textoComentario">${tab} - Se valido que los datos recibidos no sean 0 (cero)</p>
                                 <p class="textoComentario">___</p>
                             </article>
                           </details> 
@@ -139,8 +137,8 @@ app.get('/', (req, res) => {
                             <article>
                                 <p class="textoComentario">En este caso si hay validaciones de los datos pasados a la consulta</p>
                                 <p class="textoComentario"> - En este caso los datos pueden haber sido enviados o no</p>
-                                <p class="textoComentario">   - Se valido que todos los datos se hayan recibido</p>
-                                <p class="textoComentario">   - Se valido que los datos recibidos sean texto y no numeros</p>
+                                <p class="textoComentario">${tab} - Se valido que todos los datos se hayan recibido</p>
+                                <p class="textoComentario">${tab} - Se valido que los datos recibidos sean texto y no numeros</p>
                                 <p class="textoComentario">___</p>
                             </article>
                           </details> 
@@ -153,13 +151,13 @@ app.get('/', (req, res) => {
                                 <p class="textoComentario">En este caso si hay validaciones de los datos pasados por parametros</p>
                                 <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
                                 <p class="textoComentario"> - Si se pasan todos los parametros, los datos recibidos pueden ser validados</p>
-                                <p class="textoComentario">   - Se valido que los datos recibidos sean texto y no numeros</p>
+                                <p class="textoComentario">${tab} - Se valido que los datos recibidos sean texto y no numeros</p>
                                 <p class="textoComentario">___</p>
                             </article>
                           </details> 
                           </li>
                       </ul> 
-                      ${saltoLinea} ${saltoLinea}
+                      ${saltoLinea} 
                       <p class="firma">
                         Ejercicio realizado por: <b>Andres Eduardo Garcia </b>
                       </p>
@@ -183,48 +181,65 @@ app.get('/', (req, res) => {
 app.get('/numen/:alumno', (req, res) => {
   const saltoLinea =  '<Br/>'; 
   const estilos=`<style>
-                  h1 {color:blue;}
+                  h1 {color:darkslategrey;}
+                  h2 {color:darkslategrey;}
                   p {color:Black;}
                   a {color:aliceblue}
 
-                  .tituloPrincipal{
-                      align-content: center;
-                      text-align: center;
-                      margin: 1rem;
-                  }
+                  .interlineado { line-height: 150%;}
 
                   .cuerpo {
                   color:Black;
                   background-color: lightsteelblue;
                   margin: 2rem;
                   }
+
+                  .codigo {
+                    color:white;
+                    background-color: darkslategray;
+                    margin-right: 32rem;
+                    line-height: 200%;
+                    font-size:large;
+                  }
+
+                  .firma {
+                    color:darkslategrey;
+                    height: 64rem;
+                    text-align: right;
+                    margin-right: 32rem;
+                    }  
                 </style>
                 `
                 ;
   let alumno = req.params.alumno;
 
   let respuesta =`
-    <head>
-    <title>Servidor Node-Express</title>
-    ${estilos}
-  </head>
-  <body  class="cuerpo">
-    <h1>
-      Retorna: 'Hola: ${alumno}'
-    </h1>
-    ${saltoLinea}
-    <h2>
-      Codigo: 
-    </h2>
-    ${saltoLinea}
-    <code>
-      ${`app.get('/numen/:alumno', (req, res) => {`} ${saltoLinea}
-      ${`   Let alumno = req.params.alumno;`} ${saltoLinea}
-      ${`   res.status(200).send('Hola: ' + ${'${alumno}'});`} ${saltoLinea}
-      ${`}) `} ${saltoLinea}
-    </code>
-  </body> 
-    `
+                  <head>
+                  <title>Servidor Node-Express</title>
+                  ${estilos}
+                </head>
+                <body  class="cuerpo">
+                  <h1>
+                    Retorna: 'Hola: ${alumno}'
+                  </h1>
+                  ${saltoLinea}
+                  <h2>
+                    Codigo: 
+                  </h2>
+                  <div class='codigo'>
+                    <code>
+                      ${`app.get('/numen/:alumno', (req, res) => {`} ${saltoLinea}
+                      ${`   Let alumno = req.params.alumno;`} ${saltoLinea}
+                      ${`   res.status(200).send('Hola: ' + ${'${alumno}'});`} ${saltoLinea}
+                      ${`}) `} ${saltoLinea}
+                    </code>
+                  </div>
+                  ${saltoLinea}${saltoLinea}${saltoLinea} 
+                    <p class="firma">
+                      Ejercicio realizado por: <b>Andres Eduardo Garcia </b>
+                    </p>
+                </body> 
+                  `
     ;
 
   res.status(200).send(respuesta);
@@ -236,21 +251,33 @@ app.get('/numen/:alumno', (req, res) => {
 app.get('/prueba', (req, res) => {
   const saltoLinea =  '<Br/>'; 
   const estilos=`<style>
-                  h1 {color:blue;}
+                  h1 {color:darkslategrey;}
+                  h2 {color:darkslategrey;}
                   p {color:Black;}
                   a {color:aliceblue}
 
-                  .tituloPrincipal{
-                      align-content: center;
-                      text-align: center;
-                      margin: 1rem;
-                  }
+                  .interlineado { line-height: 150%;}
 
                   .cuerpo {
                   color:Black;
                   background-color: lightsteelblue;
                   margin: 2rem;
                   }
+
+                  .codigo {
+                    color:white;
+                    background-color: darkslategray;
+                    margin-right: 32rem;
+                    line-height: 200%;
+                    font-size:large;
+                  }
+
+                  .firma {
+                    color:darkslategrey;
+                    height: 64rem;
+                    text-align: right;
+                    margin-right: 32rem;
+                    }  
                 </style>
                 `
                 ; 
@@ -260,30 +287,36 @@ app.get('/prueba', (req, res) => {
   let resultado = `Mi nombre es: ${nombre}, ${apellido} `;
 
   let respuesta =`
-    <head>
-    <title>Servidor Node-Express</title>
-    ${estilos}
-  </head>
-  <body  class="cuerpo">
-    <h1>
-      Retorna: ${resultado}
-    </h1>
-    ${saltoLinea}
-    <h2>
-      Codigo: 
-    </h2>
-    ${saltoLinea}
-    <code>    
-      ${`app.get('/prueba', (req, res) => {   `}${saltoLinea}
-      ${'   let nombre = req.query.nombre;'}${saltoLinea}
-      ${'   let apellido = req.query.apellido;'}${saltoLinea}
-      ${'   let resultado = `Mi nombre es: ${nombre}, ${apellido} `;'}${saltoLinea}
-      ${`   res.status(200).send(resultado);`} ${saltoLinea}
-      ${`})   `} ${saltoLinea}
-    </code>
-  </body> 
-  `
-  ;
+                  <head>
+                  <title>Servidor Node-Express</title>
+                  ${estilos}
+                  </head>
+                  <body  class="cuerpo">
+                    <h1>
+                      Retorna: ${resultado}
+                    </h1>
+                    ${saltoLinea}
+                    <h2>
+                      Codigo: 
+                    </h2>
+                    ${saltoLinea}
+                    <div class='Codigo'>
+                    <code>    
+                      ${`app.get('/prueba', (req, res) => {   `}${saltoLinea}
+                      ${'   let nombre = req.query.nombre;'}${saltoLinea}
+                      ${'   let apellido = req.query.apellido;'}${saltoLinea}
+                      ${'   let resultado = `Mi nombre es: ${nombre}, ${apellido} `;'}${saltoLinea}
+                      ${`   res.status(200).send(resultado);`} ${saltoLinea}
+                      ${`})   `} ${saltoLinea}
+                    </code>
+                    </div>
+                    ${saltoLinea}${saltoLinea}${saltoLinea} 
+                    <p class="firma">
+                      Ejercicio realizado por: <b>Andres Eduardo Garcia </b>
+                    </p>
+                  </body> 
+                  `
+                  ;
   
   res.status(200).send(respuesta);
 })
@@ -298,9 +331,12 @@ app.get('/prueba', (req, res) => {
 
 
 // Ejercicio 1 - Sumar dos valores
-// -------------------------------
+// -----------
 
-// Opcion 1 - Transformo el texto a numero con la funcion Number()
+// Opcion 1 -  Sumo dos numeros pasados como parametro en la ruta 
+//  Transformo el texto a numero con la funcion Number()
+// Como los parametros son parte de la ruta, si alguno se omite, falla la ruta
+// ej: href="http://localhost:4000/sumaEjemploClase/9/2
 app.get('/sumaEjemploClase/:num1/:num2', (req, res) => {
   let num1 = Number(req.params.num1);
   let num2 = Number(req.params.num2);
@@ -311,11 +347,20 @@ app.get('/sumaEjemploClase/:num1/:num2', (req, res) => {
 })
 
 
-// Opcion 2 - 
+// Opcion 2 - Sumar dos valores pasados por parametros a la ruta
 // Transformo el texto a numero haciendo una operacion matematica
-//  (por ejemplo multiplico por 1 que es un elemento neutro para la multiplicacion)
-//  elijo esto porque asi verifico el estado de una sola variable "resultado" para validar las entradas
-//  me permite usar un solo ternario para validar
+// Como los parametros son parte de la ruta, si alguno se omite, falla la ruta
+// Se valida que los parametros pasados sean numericos
+// Para convertir el valor del parametro se eligio multiplicarlo por 1 (elemento neutro de la multiplicacion)
+// elijo esto porque asi verifico el estado de una sola variable "resultado" para validar las entradas
+// Fundamentacion:
+//     ya que en Js ("2" * 2 = 4), si el texto ("2"), es un numero, lo convierte en el mumero (2) y devuelve el resultado (4) como numero
+//     ojo! en Js ("2" + 2 = "4"), si el texto ("2"), es un numero, lo convierte en el mumero (2) y devuelve el resultado ("4") como texto
+//     ojo! en Js ("A" * 2)=NaN (no es un numero) pero Js lo considera de tipo numerico. NaN usado en cualquier operacion da como resultado NaN
+//     aprovechando esto si multiplicamos el valor recibido en el parametro por 1 (Valor neutro) y lo almacenamos en una variable, esta sera de tipo numerico
+//     si luego usamos las variables en una operacion matematica el resultado sera numerico, o sea cualquier numero incluyendo NaN
+//     por eso un simple ternario nos sirve para validar la variable que usamos para almacenar el resultado y no es necesario validar cada parametro
+//     la siguiente comparacion (resultado !== null && !isNaN(resultado)) ya solucona el tema plateado
 // Ej: http://localhost:4000/suma/9/2
 app.get('/suma/:num1/:num2', (req, res) => {
   let num1 = (req.params.num1) * 1;
@@ -356,11 +401,17 @@ app.get('/suma/:num1/:num2', (req, res) => {
 
 
 
-// Ejercicio 2 - Restar dos valores
-// --------------------------------
-// Transformo el texto a numero haciendo una operacion matematica para simplificar la validacion
-//  (por ejemple multiplico por 1 que es un elemento neutro para la multiplicacion)
-//  asi uso solo dos ternarios anidados para validar
+// Ejercicio 2 - Restar dos valores pasados por parametros en la ruta
+// -----------
+// Se Validara que los valores pasados en los parametros no sean 0 (cero)
+//  Para efectuar la resta, transformo el texto a numero haciendo una operacion matematica 
+//    (por ejemplo multiplico por 1 que es un elemento neutro para la multiplicacion)
+//  Como los parametros son parte de la ruta, si alguno se omite, falla la ruta
+//  En las variables donde se almacenaron de los parametros transformados se obtendra lo sguiente:
+//    Si el contenido a transformar contenia caracteres no numericos, su contenido sera NaN y su tipo sera numerico
+//    Si el contenido a transformar contenia caracteres numericos, su contenido sera dicho numero y su tipo sera numerico
+//    Recordemos que por ejemplo (10 - NaN = NaN) y NaN es de tipo numerico
+//    Por lo anterior la siguiente comparacion resuellve la validacion (num1 !== 0 && num2 !== 0)
 //  Ej: http://localhost:4000/resta/9/2
 app.get('/resta/:num1/:num2', (req, res) => {
   // Cargo en variables los parametros, los transformo, y cargo el resultado en otra variable
@@ -402,9 +453,10 @@ app.get('/resta/:num1/:num2', (req, res) => {
 
 
 // Ejercicio 3 - Retornar Nombre y Apellido 
-// ------------------------------------------
+// -----------
 
 // Opcion 1, por consulta (qrys) sin validacion
+//  - No se hacen validaciones para poder comparar los resultados con la opcion 2
 // http://localhost:4000/ej3op2?nombre=Andres&apellido=Garcia
 app.get('/ej3op1', (req, res) => {
   // Asigno a variables el contenido de las consultas
@@ -469,6 +521,8 @@ app.get('/ej3op2', (req, res) => {
 
 
 // Opcion 3, por parametros (Prms)
+// Como los parametros son parte de la ruta, si alguno se omite, falla la ruta
+//  Se valido que ninguno de los parametros sean numeros
 //  Ej: http://localhost:4000/ej3op3/Andrres/Garcia
 app.get('/ej3op3/:nombre/:apellido', (req, res) => {
   // Asign a variables los datos de los parametros
@@ -526,7 +580,24 @@ function obtenerMomentoDeArranque(){
   return(`${momento}`);  
 }
 
+function obtenerIpLocal(){
+  let os=require('os');
+  let ifaces=os.networkInterfaces();
+  let resultado = "| "
+  
+  for ( dev in ifaces) {
+    let alias = 0;
 
+    ifaces[dev].forEach(function(details){
+      if (details.family=='IPv4') {
+        resultado = resultado.concat( dev + ': ' + (alias ?' :'+alias:' '),details.address  + '  | ' );
+        //console.log( dev+(alias?':'+alias:''),details.address );
+        ++alias;
+      }
+    });
+  }
+  return(resultado);
+}
 
 
 // Arranco el Servidor (app)
