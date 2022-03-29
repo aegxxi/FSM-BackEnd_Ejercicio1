@@ -92,9 +92,11 @@ app.get('/', (req, res) => {
                           <details>
                           <summary>Comentarios</summary>
                           <article>
-                              <p class="textoComentario">En este caso no se valido cada parametro, se valido el resultado</p>
                               <p class="textoComentario"> - Como los parametros son parte de la ruta, si alguno se omite, falla la ruta</p>
-                              <p class="textoComentario"> - Para convertir el valor del parametro se eligio multiplicarlo por 1 (elemento neutro de la multiplicacion)</p>
+                              <p class="textoComentario"> - En este caso no se valido cada parametro, se valido el resultado</p>
+                              <p class="textoComentario">${tab} Si bien siempre es conveniente usar <b><i>"Number(req.params.x)"</i></b> para transformar el valor del parametro de texto a numero</p>
+                              <p class="textoComentario">${tab} ${b}En este ejercicio, se eligio multiplicarlo por 1 (elemento neutro de la multiplicacion)</p>
+                              <p class="textoComentario">${tab} <b><i>Fundamentacion:</i></b></p>
                               <p class="textoComentario">${tab} ya que en Js ("2" * 2 = 4), si el texto ("2"), es un numero, lo convierte en el mumero (2) y devuelve el resultado (4) como numero</p>
                               <p class="textoComentario">${tab} ojo! en Js ("2" + 2 = "4"), si el texto ("2"), es un numero, lo convierte en el mumero (2) y devuelve el resultado ("4") como texto</p>
                               <p class="textoComentario">${tab} ojo! en Js ("A" * 2)=NaN (no es un numero) pero Js lo considera de tipo numerico. NaN usado en cualquier operacion da como resultado NaN</p>
@@ -385,8 +387,9 @@ app.get('/sumaEjemploClase/:num1/:num2', (req, res) => {
 // Transformo el texto a numero haciendo una operacion matematica
 // Como los parametros son parte de la ruta, si alguno se omite, falla la ruta
 // Se valida que los parametros pasados sean numericos
-// Para convertir el valor del parametro se eligio multiplicarlo por 1 (elemento neutro de la multiplicacion)
-// elijo esto porque asi verifico el estado de una sola variable "resultado" para validar las entradas
+// Si bien siempre es conveniente usar "Number(req.params.x)" para transformar el valor del parametro de texto a numero,
+// para este ejercicio se eligio multiplicarlo por 1 (elemento neutro de la multiplicacion)
+// se elijo esto, porque asi verifico el estado de una sola variable "resultado" para validar las entradas
 // Fundamentacion:
 //     ya que en Js ("2" * 2 = 4), si el texto ("2"), es un numero, lo convierte en el mumero (2) y devuelve el resultado (4) como numero
 //     ojo! en Js ("2" + 2 = "4"), si el texto ("2"), es un numero, lo convierte en el mumero (2) y devuelve el resultado ("4") como texto
@@ -438,8 +441,9 @@ app.get('/suma/:num1/:num2', (req, res) => {
 // Ejercicio 2 - Restar dos valores pasados por parametros en la ruta
 // -----------
 // Se Validara que los valores pasados en los parametros no sean 0 (cero)
-//  Para efectuar la resta, transformo el texto a numero haciendo una operacion matematica 
+//  En este ejercicio, para efectuar la resta, transformo el texto a numero haciendo una operacion matematica. 
 //    (por ejemplo multiplico por 1 que es un elemento neutro para la multiplicacion)
+//    sin embargo lo estandar seria "Number(req.params.x)" 
 //  Como los parametros son parte de la ruta, si alguno se omite, falla la ruta
 //  En las variables donde se almacenaron de los parametros transformados se obtendra lo sguiente:
 //    Si el contenido a transformar contenia caracteres no numericos, su contenido sera NaN y su tipo sera numerico
@@ -636,18 +640,17 @@ function obtenerIpLocal(){
 
 // Arranco el Servidor (app)
 app.listen(port, () => {
-  const info =` * Express.js version: ${obtenerExpressVersion()}` // Opcional: obtengo informacion adicional
+  const info =` * Express.js version: ${obtenerExpressVersion()}` // Opcional: obtengo informacion adicional, por el momento solo la version de express.
 
   // Muestro informacion en la consola
   console.log(`El Servidor de ejemplo Escucha en el puerto: ${port}`); // Arranco el Servidor
+  console.log(` * Direcion/es Ip V4: ${obtenerIpLocal()}`)
   console.log(` * Node Version: ${version}`);
   console.log(`${info}`);
   console.log(` * Iniciado: ${obtenerMomentoDeArranque()}`);
   console.log(``);
   console.log(` * Ir a la pagina inicial del servidor: http://localhost:${port}`);
   
-  //Pruebas para mostrar las ip del equipo
-  //console.log(os.networkInterfaces());
 })
 
 
