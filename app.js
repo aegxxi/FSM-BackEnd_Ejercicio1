@@ -454,7 +454,7 @@ app.get('/suma/:num1/:num2', (req, res) => {
 app.get('/resta/:num1/:num2', (req, res) => {
   // Cargo en variables los parametros, los transformo, y cargo el resultado en otra variable
   let num1 = (req.params.num1) * 1;
-  let num2 = (req.params.num2) *1;
+  let num2 = (req.params.num2) * 1;
   let resultado = num1 - num2;
   
   // Consologueo los valores a trabajar en este ejercicio
@@ -618,16 +618,17 @@ function obtenerMomentoDeArranque(){
   return(`${momento}`);  
 }
 
+//Obtengo las direcciones de IP V4
 function obtenerIpLocal(){
-  let os=require('os');
-  let ifaces=os.networkInterfaces();
-  let resultado = "| "
+  const os = require('os');
+  const ifaces = os.networkInterfaces();
+  let resultado =  "| "
   
   for ( dev in ifaces) {
     let alias = 0;
 
     ifaces[dev].forEach(function(details){
-      if (details.family=='IPv4') {
+      if (details.family == 'IPv4') {
         resultado = resultado.concat( dev + ': ' + (alias ?' :'+alias:' '),details.address  + '  | ' );
         //console.log( dev+(alias?':'+alias:''),details.address );
         ++alias;
@@ -636,7 +637,7 @@ function obtenerIpLocal(){
   }
   return(resultado);
 }
-
+ 
 
 // Arranco el Servidor (app)
 app.listen(port, () => {
@@ -652,7 +653,5 @@ app.listen(port, () => {
   console.log(` * Ir a la pagina inicial del servidor: http://localhost:${port}`);
   
 })
-
-
 
 
